@@ -36,9 +36,9 @@ infixr 2 ?||
 -- Instantiated for each kind of fuzzy set.
 -- If you want to overload with a t-norm, instantiate against a newtype or instantiated set.
 class Fuzzy a where
-    -- | Union over fuzzy values.
-    (?&&) :: a -> a -> a
     -- | Intersection over fuzzy values.
+    (?&&) :: a -> a -> a
+    -- | Union over fuzzy values.
     (?||) :: a -> a -> a
     -- | Fuzzy complement.
     fnot  :: a -> a
@@ -47,10 +47,10 @@ class Fuzzy a where
 instance Fuzzy Double where
     -- | Equivalent to use of the Godel t-conorm,
     -- > (?&&) = tCo tGodel
-    (?&&)  = max
+    (?&&)  = min
     -- | Equivalent to use of the Godel t-norm,
     -- > (?||) = tGodel
-    (?||)  = min
+    (?||)  = max
     fnot x = 1 - x
 
 -- | Fuzzy operators for membership functions.
